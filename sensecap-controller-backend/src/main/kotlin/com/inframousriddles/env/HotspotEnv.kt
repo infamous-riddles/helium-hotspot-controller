@@ -1,7 +1,8 @@
 package com.inframousriddles.env
 
 enum class HotspotEnv(val actualName: String) {
-  HOTSPOT_API(actualName = "HOTSPOT_API")
+  HOTSPOT_API(actualName = "HOTSPOT_API"),
+  HOTSPOT_TOKEN(actualName = "HOTSPOT_TOKEN")
 }
 
 val HotspotEnv.fromEnv
