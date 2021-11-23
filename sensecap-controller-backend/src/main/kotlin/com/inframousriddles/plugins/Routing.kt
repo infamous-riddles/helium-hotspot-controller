@@ -15,6 +15,11 @@ fun Application.configureRouting() {
     val client = HttpClient(Jetty)
 
     routing {
+        route("/health") {
+            get {
+                call.respondText("OK")
+            }
+        }
         route(SenseCAPRoutes.ROOT) {
             post(path = SenseCAPRoutes.SHUTDOWN_ROUTE) {
                 SenseCAPHandler.ShutdownHandler.handle(call = call, client = client)
