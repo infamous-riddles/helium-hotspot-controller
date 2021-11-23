@@ -1,0 +1,30 @@
+on:
+  push:
+    branches: [main]
+
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_deploy_balena:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: installDist
+          gradle-version: 7.3
+          build-root-directory: sensecap-controller-backend
+      - uses: balena-io/balena-ci@master
+        id: build
+        with:
+          balena_token: ${{ secrets.BALENA_TOKEN }}
+          fleet: ${{ secrets.BALENA_FLEET }}
+          source: sensecap-controller-backend
+      - name: Log release ID built
+        run: echo "Built release ID ${{ steps.build.outputs.release_id }}"
