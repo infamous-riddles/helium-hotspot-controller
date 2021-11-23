@@ -12,11 +12,7 @@ import io.ktor.server.application.*
 fun Application.configureRouting() {
     install(DoubleReceive)
 
-    val client = HttpClient(Jetty) {
-        install(ContentNegotiation) {
-            json()
-        }
-    }
+    val client = HttpClient(Jetty)
 
     routing {
         route(SenseCAPRoutes.ROOT) {
