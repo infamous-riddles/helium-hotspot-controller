@@ -39,7 +39,7 @@ interface SenseCAPHandler {
     hotspotAction: HotspotAction
   ) {
     val logger = call.logger
-    val hotspotActionAPI = when(hotspotAction) {
+    val hotspotActionAPI = when (hotspotAction) {
       HotspotAction.SHUTDOWN -> "shutdown"
       HotspotAction.REBOOT -> "reboot"
       HotspotAction.RESET_BLOCKS -> "resetblocks"
@@ -53,7 +53,9 @@ interface SenseCAPHandler {
       """.trimIndent()
     )
 
-    val hotspotActionResponse = client.post(urlString = hotspotActionEndpoint)
+    val hotspotActionResponse = client.post(urlString = hotspotActionEndpoint) {
+      header("Authorization", "Basic ${HotspotEnv.HOTSPOT_TOKEN.fromEnv}")
+    }
 
     logger.info(
       """
