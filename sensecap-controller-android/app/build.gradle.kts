@@ -42,6 +42,11 @@ android {
             setOf("/META-INF/{AL2.0,LGPL2.1}")
         )
     }
+    applicationVariants.all {
+        with(this) {
+            buildConfigField("String", "SENSECAP_HOST", "\"0.0.0.0\"")
+        }
+    }
 }
 
 dependencies {
