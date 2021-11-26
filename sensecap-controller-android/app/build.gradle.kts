@@ -42,6 +42,11 @@ android {
             setOf("/META-INF/{AL2.0,LGPL2.1}")
         )
     }
+    applicationVariants.all {
+        with(this) {
+            buildConfigField("String", "SENSECAP_HOST", "\"0.0.0.0\"")
+        }
+    }
 }
 
 dependencies {
@@ -55,6 +60,10 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
     implementation("androidx.activity:activity-compose:1.4.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
