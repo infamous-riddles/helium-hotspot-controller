@@ -9,7 +9,7 @@ object Network {
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("${BuildConfig.SENSECAP_HOST}/")
+            .baseUrl("https://${BuildConfig.SENSECAP_HOST}/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
