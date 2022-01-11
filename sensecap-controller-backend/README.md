@@ -47,7 +47,21 @@ The Ktor backend application expects 2 environment variables in order to properl
 After you have added these 2 environment variables you need to be very careful since from now on (if you have set everything up correctly)
 the backend application will be able to communicate with your hotspot!
 
-## API Routes
+## API
+
+In order to access the following API Routes you need to set-up the following 2 environment variables:
+
+* `SENSCAP_USERNAME` - The username to be used and authenticate with.
+* `SENSCAP_PASSWORD` - The password to be used and authenticate with.
+
+After adding the above you can make authenticated API calls to the following routes by using basic authentication header
+like so:
+
+```shell
+Authorization: Basic base64_encoded_value_of_SENSECAP_USERNAME:SENSECAP_PASSWORD
+```
+
+Routes:
 
 * `/sensecap/shutdown`
 * `/sensecap/reboot`
