@@ -24,14 +24,14 @@ import kotlinx.coroutines.flow.collectLatest
 fun Actions(viewModel: ActionsViewModel) {
 
     val state = viewModel.state.collectAsState()
-    val intents = viewModel.uiEvents.rememberFlowWithLifecycle()
+    val uiEvents = viewModel.uiEvents.rememberFlowWithLifecycle()
     val scaffoldState = rememberScaffoldState()
 
-    LaunchedEffect(intents, scaffoldState) {
+    LaunchedEffect(uiEvents, scaffoldState) {
         val snackbarHostState = scaffoldState.snackbarHostState
 
-        intents.collectLatest { intent ->
-            when (intent) {
+        uiEvents.collectLatest { uiEvent ->
+            when (uiEvent) {
                 ActionsUIEvent.FastSyncConfirmed ->
                     snackbarHostState.showSnackbar(message = "FastSync confirmed")
                 ActionsUIEvent.ResetBlocksConfirmed ->
@@ -42,7 +42,7 @@ fun Actions(viewModel: ActionsViewModel) {
                     snackbarHostState.showSnackbar(message = "Shutdown confirmed")
                 is ActionsUIEvent.ShowFailure -> {
                     snackbarHostState.showSnackbar(
-                        message = intent.throwable.message ?: "Error",
+                        message = uiEvent.throwable.message ?: "Error",
                         duration = SnackbarDuration.Long
                     )
                 }
